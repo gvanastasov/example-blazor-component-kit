@@ -9,6 +9,7 @@ $ComponentType = @{
 
 $defaultConfig = @{
     "componentsDirectory" = ""
+    "singleDirectoryComponent" = false
 }
 
 $configPath = Join-Path -Path $PWD -ChildPath ".\cm.config.json"
@@ -40,6 +41,10 @@ function New-Component {
 
     if ($configContent.componentsDirectory) {
         $dist = Join-Path -Path $dist -ChildPath $configContent.componentsDirectory
+    }
+
+    if ($configContent.singleDirectoryComponent) {
+        $dist = Join-Path -Path $dist -ChildPath $name
     }
 
     if (-not (Test-Path -Path $dist -PathType Container)) {

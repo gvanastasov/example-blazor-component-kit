@@ -1,3 +1,4 @@
 {
-    "componentsDirectory": "./Components"
+    "componentsDirectory": "./Components",
+    "singleDirectoryComponent": true
 }
