@@ -29,3 +29,4 @@ When running commands via the cmd outlet, those will always use current working 
 
 Options:
 - componentsDirectory - used to specify where to create components
+- singleDirectoryComponent - used to specify if components should be placed in separate subfolders
