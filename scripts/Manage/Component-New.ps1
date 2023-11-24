@@ -20,14 +20,6 @@ if (Test-Path -Path $configPath) {
     $configContent = $defaultConfig
 }
 
-# Access the configuration value (componentsPath)
-$componentsPath = $configContent.componentsDirectory
-
-# Use the configuration value in your script
-# ...
-
-# Rest of your script
-
 function New-Component {
     param (
         [string]$type = $ComponentType.SFC,
