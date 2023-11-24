@@ -3,18 +3,18 @@ $scriptDirectory = Split-Path -Parent $MyInvocation.MyCommand.Definition
 
 # imports
 . (Join-Path -Path $scriptDirectory -ChildPath "..\Utils\New-Menu.ps1")
+. (Join-Path -Path $scriptDirectory -ChildPath "..\Utils\Text-Formatter.ps1")
 
-$MainMenuTitle = "Component Manager"
+$MainMenuTitle = Text-Pound-Wrapper -Text "Component Manager"
 $MainMenuOptions = @("Create Component", "Remove Component", "Exit")
 
-$CreateMenuTitle = "Create Component"
+$CreateMenuTitle = Text-Pound-Wrapper -Text "Create Component"
 $CreateMenuOptions = @("Single-File Component (SFC)", "Partial-File Split (PFS)", "Base-Class Split (BCS)", "Help", "Return")
 
 function MainMenu {
     $MenuResult = New-Menu -MenuTitle $MainMenuTitle -MenuOptions $MainMenuOptions
     switch ($MenuResult) {
         0 { 
-            Write-Host "create component..."
             $CreateMenuResult = New-Menu -MenuTitle $CreateMenuTitle -MenuOptions $CreateMenuOptions
 
             switch ($CreateMenuResult) {
