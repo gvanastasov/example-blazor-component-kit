@@ -18,3 +18,15 @@ $border
 
     return $result
 }
+
+function Convert-To-TrainCase {
+    param (
+        [string]$inputString
+    )
+
+    $trainCaseString = $inputString -creplace '([A-Z])', '-$1'
+
+    $trainCaseString = ($trainCaseString -replace '^-', '').ToLower()
+
+    return $trainCaseString
+}

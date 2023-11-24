@@ -4,6 +4,7 @@ $scriptDirectory = Split-Path -Parent $MyInvocation.MyCommand.Definition
 # imports
 . (Join-Path -Path $scriptDirectory -ChildPath "..\Utils\New-Menu.ps1")
 . (Join-Path -Path $scriptDirectory -ChildPath "..\Utils\Text-Formatter.ps1")
+. (Join-Path -Path $scriptDirectory -ChildPath ".\Component-New.ps1")
 
 $MainMenuTitle = Format-PoundBox -Text "Component Manager"
 $MainMenuOptions = @("Create Component", "Remove Component", "Exit")
@@ -19,7 +20,8 @@ function MainMenu {
 
             switch ($CreateMenuResult) {
                 0 {
-                    Write-Host "SFC..."
+                    $componentName = Read-Host "Enter component name"
+                    New-Component -type $ComponentType.SFC -name $componentName
                 }
                 1 {
                     Write-Host "PFS..."
