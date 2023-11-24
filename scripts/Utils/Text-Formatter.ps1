@@ -1,4 +1,4 @@
-function Text-Pound-Wrapper {
+function Format-PoundBox {
     param (
         [int]$maxBoundBox = 80,
         [string]$Text
