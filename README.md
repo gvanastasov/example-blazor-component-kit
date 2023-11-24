@@ -2,7 +2,7 @@
  A simple startup kit for building a component library.
 
 
-Getting Started
+## Getting Started
 
 1. Copy the scripts folder somewhere on your machine
 2. Run the entry point from within your target library.
@@ -22,3 +22,10 @@ export PATH=$PATH:/path/to/your/script/directory
 ```sh
 setx PATH "%PATH%;C:\Path\To\Your\Script\Directory" /M
 ```
+
+## Config
+
+When running commands via the cmd outlet, those will always use current working directory. Default behaviours can be overwritten via cm.config.json with the same directory.
+
+Options:
+- componentsDirectory - used to specify where to create components

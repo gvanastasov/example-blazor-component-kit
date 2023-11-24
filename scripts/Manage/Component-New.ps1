@@ -1,11 +1,31 @@
 
-. (Join-Path -Path $scriptDirectory -ChildPath "..\Utils\Text-Formatter.ps1")
+. (Join-Path -Path $PSScriptRoot -ChildPath "..\Utils\Text-Formatter.ps1")
 
 $ComponentType = @{
     SFC = "SFC"
     PFS = "PFS"
     BCS = "BCS"
 }
+
+$defaultConfig = @{
+    "componentsDirectory" = ""
+}
+
+$configPath = Join-Path -Path $PWD -ChildPath ".\cm.config.json"
+
+if (Test-Path -Path $configPath) {
+    $configContent = Get-Content -Path $configPath | Out-String | ConvertFrom-Json
+} else {
+    $configContent = $defaultConfig
+}
+
+# Access the configuration value (componentsPath)
+$componentsPath = $configContent.componentsDirectory
+
+# Use the configuration value in your script
+# ...
+
+# Rest of your script
 
 function New-Component {
     param (
@@ -15,9 +35,12 @@ function New-Component {
 
     $invocationDirectory = $PWD
     
-    # todo: lets add config override here
     # todo: lets add config if subfolder should be used
     $dist = $invocationDirectory
+
+    if ($configContent.componentsDirectory) {
+        $dist = Join-Path -Path $dist -ChildPath $configContent.componentsDirectory
+    }
 
     if (-not (Test-Path -Path $dist -PathType Container)) {
         New-Item -Path $dist -ItemType Directory | Out-Null
