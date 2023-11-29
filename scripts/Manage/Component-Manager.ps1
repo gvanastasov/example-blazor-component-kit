@@ -4,10 +4,10 @@
 . (Join-Path -Path $PSScriptRoot -ChildPath ".\Component-New.ps1")
 
 $MainMenuTitle = Format-PoundBox -Text "Component Manager"
-$MainMenuOptions = @("Create Component", "Remove Component", "Exit")
+$MainMenuOptions = @("Create Component", "Exit")
 
 $CreateMenuTitle = Format-PoundBox -Text "Create Component"
-$CreateMenuOptions = @("Single-File Component (SFC)", "Partial-File Split (PFS)", "Base-Class Split (BCS)", "Help", "Return")
+$CreateMenuOptions = @("Single-File Component (SFC)", "Partial-Class Split (PCS)", "Base-Class Split (BCS)", "Help", "Return")
 
 function MainMenu {
     $MenuResult = New-Menu -MenuTitle $MainMenuTitle -MenuOptions $MainMenuOptions
@@ -22,7 +22,7 @@ function MainMenu {
                 }
                 1 {
                     $componentName = Read-Host "Enter component name"
-                    New-Component -type $ComponentType.PFS -name $componentName
+                    New-Component -type $ComponentType.PCS -name $componentName
                 }
                 2 {
                     $componentName = Read-Host "Enter component name"
@@ -37,9 +37,6 @@ function MainMenu {
             }
         }
         1 {
-            Write-Host "delete component..."
-        }
-        2 {
             exit
         }
         Default {}

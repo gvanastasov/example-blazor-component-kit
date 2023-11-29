@@ -4,8 +4,8 @@
 $ComponentType = @{
     # Single File Component
     SFC = "SFC"
-    # Partial File Split
-    PFS = "PFS"
+    # Partial Class Split
+    PCS = "PCS"
     # Base Class Split
     BCS = "BCS"
 }
@@ -49,7 +49,7 @@ function New-Component {
 
     switch ($type) {
         "SFC" { New-SFC -componentName $name -dist $dist }
-        "PFS" { New-PFS -componentName $name -dist $dist }
+        "PCS" { New-PCS -componentName $name -dist $dist }
         "BCS" { New-BCS -componentName $name -dist $dist }
         default { Write-Host "Unknown component type: $type" }
     }
@@ -74,12 +74,12 @@ function New-SFC {
         }) | Out-File -FilePath "$dist\$componentName.razor" -Force
 }
 
-function New-PFS {
+function New-PCS {
     param (
         [string]$componentName
     )
 
-    $template = Get-Template -name 'template-pfs.txt'
+    $template = Get-Template -name 'template-pcs.txt'
 
     $styleClassName = Convert-To-TrainCase -inputString $componentName
 
@@ -90,7 +90,7 @@ function New-PFS {
             -replace '__INNERHTML__', "Hello from $componentName" `
         }) | Out-File -FilePath "$dist\$componentName.razor" -Force
 
-    $code = Get-Template -name 'template-pfs.code.txt'
+    $code = Get-Template -name 'template-pcs.code.txt'
 
     $namespace = Get-NamespaceFromFolder -dist $dist
 
