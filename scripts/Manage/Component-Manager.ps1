@@ -25,7 +25,8 @@ function MainMenu {
                     New-Component -type $ComponentType.PFS -name $componentName
                 }
                 2 {
-                    Write-Host "BCS..."
+                    $componentName = Read-Host "Enter component name"
+                    New-Component -type $ComponentType.BCS -name $componentName
                 }
                 3 {
                     Write-Host "Help..."

@@ -1,0 +1,9 @@
+@inherits __NAMESPACE__.__CLASSNAME__
+
+<__ELEMENTTYPE__ class="__STYLECLASSNAME__">__INNERHTML__</__ELEMENTTYPE__>
+
+<style>
+.__STYLECLASSNAME__ {
+    
+}
+</style>

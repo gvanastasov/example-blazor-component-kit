@@ -1,0 +1,8 @@
+using Microsoft.AspNetCore.Components;
+
+namespace __NAMESPACE__
+{
+    public class __CLASSNAME__ : ComponentBase
+    {
+    }
+}

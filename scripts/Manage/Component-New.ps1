@@ -41,11 +41,11 @@ function New-Component {
         $dist = Join-Path -Path $dist -ChildPath $name
     }
 
-    $dist = Resolve-Path -Path $dist
-
     if (-not (Test-Path -Path $dist -PathType Container)) {
         New-Item -Path $dist -ItemType Directory | Out-Null
     }
+
+    $dist = Resolve-Path -Path $dist
 
     switch ($type) {
         "SFC" { New-SFC -componentName $name -dist $dist }
@@ -105,6 +105,30 @@ function New-BCS {
     param (
         [string]$componentName
     )
+
+    $template = Get-Template -name 'template-bcs.txt'
+
+    $styleClassName = Convert-To-TrainCase -inputString $componentName
+    $className = ("$componentName" + "Base")
+
+    ($template |
+        ForEach-Object {
+            $_ -replace '__ELEMENTTYPE__', 'div' `
+            -replace '__NAMESPACE__', $namespace `
+            -replace '__CLASSNAME__', "$className" `
+            -replace '__STYLECLASSNAME__', $styleClassName `
+            -replace '__INNERHTML__', "Hello from $componentName" `
+        }) | Out-File -FilePath "$dist\$componentName.razor" -Force
+
+    $code = Get-Template -name 'template-bcs.code.txt'
+
+    $namespace = Get-NamespaceFromFolder -dist $dist
+
+    ($code |
+        ForEach-Object {
+            $_ -replace '__CLASSNAME__', "$className" `
+            -replace '__NAMESPACE__', $namespace
+        }) | Out-File -FilePath "$dist\$className.cs" -Force
 }
 
 function Get-Template {
