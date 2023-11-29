@@ -28,6 +28,7 @@ function New-Menu {
         $KeyInput = $host.ui.rawui.readkey("NoEcho,IncludeKeyDown").virtualkeycode
 
         Switch($KeyInput){
+            # enter
             13{
                 $EnterPressed = $True
                 Return $Selection
@@ -35,6 +36,12 @@ function New-Menu {
                 break
             }
 
+            # esc
+            27 {
+                return
+            }
+
+            # arrow-up
             38{
                 If ($Selection -eq 0){
                     $Selection = $MaxValue
@@ -45,6 +52,7 @@ function New-Menu {
                 break
             }
 
+            # arrow-down
             40{
                 If ($Selection -eq $MaxValue){
                     $Selection = 0
