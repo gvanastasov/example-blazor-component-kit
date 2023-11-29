@@ -2,8 +2,11 @@
 . (Join-Path -Path $PSScriptRoot -ChildPath "..\Utils\Text-Formatter.ps1")
 
 $ComponentType = @{
+    # Single File Component
     SFC = "SFC"
+    # Partial File Split
     PFS = "PFS"
+    # Base Class Split
     BCS = "BCS"
 }
 
