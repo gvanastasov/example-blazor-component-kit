@@ -28,7 +28,6 @@ function New-Component {
 
     $invocationDirectory = $PWD
     
-    # todo: lets add config if subfolder should be used
     $dist = $invocationDirectory
 
     if ($configContent.componentsDirectory) {
