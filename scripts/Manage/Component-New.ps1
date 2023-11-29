@@ -12,7 +12,7 @@ $ComponentType = @{
 
 $defaultConfig = @{
     "componentsDirectory" = ""
-    "singleDirectoryComponent" = false
+    "singleDirectoryComponent" = $false
 }
 
 $configPath = Join-Path -Path $PWD -ChildPath ".\cm.config.json"
