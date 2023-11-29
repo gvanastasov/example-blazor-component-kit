@@ -1,0 +1,6 @@
+namespace __NAMESPACE__
+{
+    public partial class __CLASSNAME__
+    {
+    }
+}

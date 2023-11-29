@@ -41,6 +41,8 @@ function New-Component {
         $dist = Join-Path -Path $dist -ChildPath $name
     }
 
+    $dist = Resolve-Path -Path $dist
+
     if (-not (Test-Path -Path $dist -PathType Container)) {
         New-Item -Path $dist -ItemType Directory | Out-Null
     }
@@ -61,12 +63,12 @@ function New-SFC {
     
     $template = Get-Template -name 'template-sfc.txt'
 
-    $className = Convert-To-TrainCase -inputString $componentName
+    $styleClassName = Convert-To-TrainCase -inputString $componentName
     
    ($template |
         ForEach-Object {
             $_ -replace '__ELEMENTTYPE__', 'div' `
-            -replace '__CLASSNAME__', $className `
+            -replace '__STYLECLASSNAME__', $styleClassName `
             -replace '__INNERHTML__', "Hello from $componentName" `
             -replace '__CODE__', ''
         }) | Out-File -FilePath "$dist\$componentName.razor" -Force
@@ -76,6 +78,27 @@ function New-PFS {
     param (
         [string]$componentName
     )
+
+    $template = Get-Template -name 'template-pfs.txt'
+
+    $styleClassName = Convert-To-TrainCase -inputString $componentName
+
+    ($template |
+        ForEach-Object {
+            $_ -replace '__ELEMENTTYPE__', 'div' `
+            -replace '__STYLECLASSNAME__', $styleClassName `
+            -replace '__INNERHTML__', "Hello from $componentName" `
+        }) | Out-File -FilePath "$dist\$componentName.razor" -Force
+
+    $code = Get-Template -name 'template-pfs.code.txt'
+
+    $namespace = Get-NamespaceFromFolder -dist $dist
+
+    ($code |
+        ForEach-Object {
+            $_ -replace '__CLASSNAME__', "$componentName" `
+            -replace '__NAMESPACE__', $namespace
+        }) | Out-File -FilePath "$dist\$componentName.razor.cs" -Force
 }
 
 function New-BCS {
@@ -93,4 +116,27 @@ function Get-Template {
     $templateContent = Get-Content -Path $templatePath -Raw
 
     return $templateContent
+}
+
+function Get-NamespaceFromFolder {
+    param (
+        [Parameter(Mandatory=$true)][string]$dist
+    )
+
+    $namespace = @()
+
+    $currentDir = Get-Item $dist
+
+    while ($null -ne $currentDir) {
+        $csprojFile = Get-ChildItem -Path $currentDir.FullName -Filter *.csproj -File
+        $namespace = @($currentDir.Name) + $namespace
+
+        if ($null -ne $csprojFile) {
+            break
+        }
+
+        $currentDir = $currentDir.Parent
+    }
+
+    return $namespace -join '.'
 }
