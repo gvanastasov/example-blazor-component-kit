@@ -38,7 +38,7 @@ function MainMenu {
             Write-Host "delete component..."
         }
         2 {
-            Write-Host "exit..."
+            exit
         }
         Default {}
     }
