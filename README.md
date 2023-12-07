@@ -1,4 +1,4 @@
-# example-blazor-component-library
+# example-blazor-component-kit
  A simple startup kit for building a component library.
 
 
